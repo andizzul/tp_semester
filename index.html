@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#EAF4FF">
   <title>Input Tujuan Pembelajaran (TP)</title>
   <!-- UPDATE: Menggunakan font premium 'Inter' standar industri modern (SaaS/Apple look) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -166,8 +167,7 @@
     .btn-simpan-focus { align-self: flex-end; background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%); color: white; border: none; padding: 12px 28px; border-radius: 12px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: 0.2s; box-shadow: 0 6px 16px rgba(2, 132, 199, 0.28);}
     .btn-simpan-focus:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(2, 132, 199, 0.2);}
 
-    @media (max-width: 600px) { body { display: block; } .frame { width: 100%; max-width: none; height: 100vh; height: 100dvh; border-radius: 0; box-shadow: none; } .app-body { padding: 16px 16px 0; } .action-bar { margin: 0 -16px; padding: 14px 16px 18px; } }
-  </style>
+    @media (max-width: 600px) { .frame { width: calc(100% - 16px); max-width: none; height: calc(100vh - 16px); height: calc(100dvh - 16px); border-radius: 24px; isolation: isolate; box-shadow: 0 8px 24px -12px rgba(11, 42, 91, 0.25); } .app-body { padding: 16px 16px 0; } .action-bar { margin: 0 -16px; padding: 14px 16px 18px; } }  </style>
 </head>
 <body>
 
