@@ -368,7 +368,7 @@
       mapelData = data.mapel || {};
       elGuru.classList.remove('is-loading');
       elKelas.classList.remove('is-loading');
-      elGuru.innerHTML = '<option value="">-- Pilih Nama Guru --</option>';
+      elGuru.innerHTML = '<option value="">-- Pilih Guru --</option>';
       data.gurus.forEach(g => elGuru.innerHTML += `<option value="${g}">${g}</option>`);
       
       elKelas.innerHTML = '<option value="">-- Pilih Kelas --</option>';
