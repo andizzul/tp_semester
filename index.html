@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Input Tujuan Pembelajaran (TP)</title>
+  <!-- UPDATE: Menggunakan font premium 'Inter' standar industri modern (SaaS/Apple look) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================
+       CSS: STYLING & UI/UX (ULTRA-PREMIUM SAAS)
+       ========================================== */
+    :root {
+      --primary: #0284C7;
+      --primary-hover: #0369A1;
+      --navy: #0B2A5B;
+      --accent: #FACC15;
+      --bg: #EAF4FF;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --error: #DC2626;
+      --warn: #D97706;
+      --success: #059669;
+      --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    
+    body { background: radial-gradient(60rem 28rem at 50% -10%, rgba(56, 189, 248, 0.35), transparent 60%), var(--bg); color: var(--text); min-height: 100vh; min-height: 100dvh; display: flex; justify-content: center; align-items: center; line-height: 1.5; }
+    /* BINGKAI POTRET 9:16 (di HP: layar penuh) */
+    .frame { position: relative; overflow: hidden; overflow: clip; background: #fff; height: calc(100vh - 32px); height: calc(100dvh - 32px); width: calc((100vh - 32px) * 9 / 16); width: calc((100dvh - 32px) * 9 / 16); max-width: calc(100vw - 32px); border-radius: 28px; box-shadow: 0 30px 60px -20px rgba(11, 42, 91, 0.35), 0 0 0 1px rgba(11, 42, 91, 0.06); }
+    .app-header { flex-shrink: 0; text-align: center; padding: 18px 24px 40px; background: linear-gradient(160deg, #0B2A5B 0%, #0369A1 62%, #38BDF8 140%); border-radius: 0 0 28px 28px; }
+    .app-body { flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 20px 20px 0; }
+    .stepper { position: relative; z-index: 2; flex-shrink: 0; display: flex; align-items: center; margin: -24px 20px 0; padding: 12px 16px; background: #fff; border-radius: 16px; box-shadow: 0 8px 24px -8px rgba(11, 42, 91, 0.28); }
+    .step { display: flex; align-items: center; gap: 8px; color: #94A3B8; font-size: 0.75rem; font-weight: 600; }
+    .step-dot { width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: #E2E8F0; color: #64748B; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+    .step-line { flex: 1; height: 2px; margin: 0 8px; border-radius: 2px; background: #E2E8F0; }
+    .step.active { color: var(--navy); }
+    .step.active .step-dot { background: var(--primary); color: #fff; box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.6); }
+    .step.done { color: var(--primary-hover); }
+    .step.done .step-dot { background: var(--primary); color: #fff; font-size: 0; }
+    .step.done .step-dot::before { content: "\2713"; font-size: 0.75rem; }
+    .step.done + .step-line { background: var(--primary); }
+    .action-bar { position: sticky; bottom: 0; z-index: 3; margin: 0 -20px; padding: 14px 20px 20px; background: #fff; border-top: 1px solid #E2E8F0; }
+    .action-bar-row { display: flex; gap: 12px; }
+    .action-bar-row .btn-submit { flex: 1; width: auto; }
+    .btn.btn-back { flex: 0 0 36%; background: #fff; color: var(--primary-hover); border: 1.5px solid #7DD3FC; }
+    .btn-back:hover { background: #F0F9FF; border-color: var(--primary); }
+    
+    /* CARD UTAMA: Generous Whitespace, Soft-Diffused Shadow, Smooth border-radius */
+    .card { display: flex; flex-direction: column; width: 100%; height: 100%; background: #fff; }
+    
+    /* LOGO (statis, di dalam tile putih) */
+    .logo-container { width: 60px; height: 60px; margin: 0 auto 10px; background: #fff; border-radius: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,0,0,0.18); }
+    .logo-3d { max-width: 44px; max-height: 44px; width: auto; height: auto; }
+
+    h2 { text-align: center; color: #fff; margin: 0; font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; }
+    p.subtitle { text-align: center; font-size: 0.85rem; color: #BAE6FD; margin: 4px 0 0; font-weight: 400; }
+
+    /* INPUT GROUP: Efek kedalaman saat Hover */
+    .premium-group { background: none; border: 0; padding: 0; margin-bottom: 14px; }
+    .premium-group:focus-within .premium-label { color: var(--primary); }
+    
+    .premium-label { display: block; color: #334155; font-size: 0.8rem; font-weight: 600; margin-bottom: 6px; transition: color 0.2s; }
+    
+    /* MODERN INPUT & SELECT: Tanpa border tebal, transisi smooth ke Primary Focus Ring */
+    .premium-select, textarea, .premium-input { width: 100%; padding: 11px 14px; border: 1px solid #CBD5E1; border-radius: 12px; font-size: 0.9rem; font-weight: 500; color: var(--text); background-color: #fff; transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s; }
+    .premium-select { appearance: none; background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.2em; }
+    .premium-select:focus, textarea:focus, .premium-input:focus { outline: none; background-color: #FFFFFF; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15); }
+    .premium-input { -moz-appearance: textfield; appearance: textfield; }
+    .premium-input::-webkit-inner-spin-button, .premium-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    .premium-input.is-invalid { border-color: var(--error); box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12); }
+    .jumlah-row { display: flex; gap: 10px; align-items: stretch; }
+    .jumlah-row .premium-input { flex: 0 0 96px; width: 96px; text-align: center; }
+    .btn-konfirmasi { flex: 1; padding: 11px 14px; font-size: 0.9rem; background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.22); }
+    .btn-konfirmasi:hover { background: var(--primary-hover); }
+    .summary-row { padding: 12px 0; border-bottom: 1px solid #EEF2F7; min-width: 0; }
+    .summary-row.full { grid-column: 1 / -1; }
+    .tp-table { border: 1px solid #94A3B8; border-radius: 14px; overflow: hidden; margin-bottom: 18px; box-shadow: var(--shadow-sm); background: #fff; }
+    .tp-table-head { display: grid; grid-template-columns: 52px 1fr; background: linear-gradient(135deg, #0369A1 0%, #0284C7 100%); color: #fff; font-size: 0.8rem; font-weight: 700; }
+    .tp-table-head > div { padding: 11px 12px; text-align: center; }
+    .tp-table-head > div:first-child { border-right: 1px solid rgba(255, 255, 255, 0.45); }
+    .toast { position: absolute; left: 50%; bottom: 112px; transform: translate(-50%, 16px); max-width: calc(100% - 40px); display: flex; align-items: center; gap: 8px; background: var(--navy); color: #fff; padding: 10px 16px; border-radius: 14px; font-size: 0.85rem; font-weight: 600; box-shadow: 0 10px 24px rgba(11, 42, 91, 0.3); opacity: 0; visibility: hidden; transition: opacity 0.3s, transform 0.3s, visibility 0.3s; z-index: 900; }
+    .toast.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+    .toast::before { content: "\2713"; color: var(--accent); font-weight: 800; }
+    .tp-item { scroll-margin-top: 12px; }
+    @keyframes tpflash { from { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.5); } to { box-shadow: 0 0 0 12px rgba(2, 132, 199, 0); } }
+    .tp-flash { animation: tpflash 1.2s ease-out 1; border-color: var(--primary); }
+    .progress-info { text-align: center; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 10px; padding-bottom: 8px; display: none; background: linear-gradient(var(--primary), var(--primary)) left bottom / var(--p, 0%) 3px no-repeat, linear-gradient(#E2E8F0, #E2E8F0) left bottom / 100% 3px no-repeat; }
+    .progress-info.done { color: var(--success); }
+    .premium-select.is-loading { color: transparent; pointer-events: none; background-image: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%); background-size: 200% 100%; background-repeat: repeat-x; animation: shimmer 1.2s linear infinite; }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+    .premium-select:disabled { background-color: #F8FAFC; color: #94A3B8; cursor: not-allowed; border-color: #E2E8F0; opacity: 0.7;}
+    
+    .tp-container { background: none; padding: 0; border: 0; margin: 6px 0 22px; }
+    .tp-item { margin-bottom: 14px; position: relative; background: white; padding: 16px; border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: border-color 0.2s; }
+    .tp-item:focus-within { border-color: var(--primary); }
+    .tp-title-text { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: #E0F2FE; color: var(--primary-hover); font-size: 0.8rem; font-weight: 700; }
+    .badge { font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+    .badge-req { background: #E0F2FE; color: var(--primary-hover); }
+    .badge-req::after { content: " *"; color: var(--error); }
+    .badge-opt { background: #F1F5F9; color: var(--text-muted); }
+    .tp-header { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; margin-bottom: 12px; color: var(--text-muted); font-weight: 600;}
+    
+    textarea { resize: vertical; min-height: 90px; }
+    
+    .char-count { position: relative; overflow: hidden; font-size: 0.75rem; font-weight: 600; background: #F1F5F9; padding: 4px 10px 6px; border-radius: 12px; color: #475569; }
+    .char-count::after { content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: var(--p, 0%); background: currentColor; transition: width 0.15s; }
+    .warning-text { color: var(--error); font-size: 0.8rem; display: none; margin-top: 6px; font-weight: 500;}
+
+    .btn-hapus { background: #FEE2E2; color: #EF4444; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: 0.2s; display: none;}
+    .btn-hapus:hover { background: #FECACA; transform: scale(1.05); }
+
+    /* TOMBOL: 3D Gradient, Float on Hover, Press Scale */
+    .btn { padding: 14px 24px; border: none; border-radius: 14px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background-color 0.2s, box-shadow 0.2s, border-color 0.2s, transform 0.15s; }
+    .btn-outline { background: transparent; border: 1.5px dashed #7DD3FC; color: var(--primary-hover); width: 100%; margin-top: 5px;}
+    .btn-outline:hover:not(:disabled) { background: #F0F9FF; border-color: var(--primary); }
+    .btn-outline:disabled { border-color: var(--border); color: #94A3B8; cursor: not-allowed; }
+
+    .btn-submit { background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%); color: white; width: 100%; padding: 16px; box-shadow: 0 6px 16px rgba(2, 132, 199, 0.28);}
+    .btn-submit:hover:not(:disabled) { box-shadow: 0 10px 22px rgba(2, 132, 199, 0.36); filter: brightness(1.05); }
+    .btn-submit:active:not(:disabled) { transform: scale(0.98); box-shadow: 0 2px 8px rgba(2, 132, 199, 0.2); }
+    .btn-submit:disabled { background: #CBD5E1; box-shadow: none; cursor: not-allowed; transform: none;}
+
+    /* SUMMARY CARD PREVIEW */
+    .summary-card { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; background: #fff; border: 1px solid var(--border); padding: 4px 18px; border-radius: 16px; margin-bottom: 18px; box-shadow: var(--shadow-sm); }
+    .summary-title { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; margin-bottom: 2px; }
+    .summary-value { font-size: 0.9rem; color: var(--navy); font-weight: 600; overflow-wrap: anywhere; }
+    .summary-card > .summary-row:nth-last-child(-n+2) { border-bottom: 0; }
+    .preview-tp-item { display: grid; grid-template-columns: 52px 1fr; background: #FFFFFF; }
+    .preview-tp-item + .preview-tp-item { border-top: 1px solid #CBD5E1; }
+    .preview-tp-number { text-align: center; font-weight: 700; font-size: 0.9rem; line-height: 1.55; color: var(--navy); padding: 12px 0; border-right: 1px solid #CBD5E1; }
+    .preview-tp-text { color: #334155; font-size: 0.9rem; line-height: 1.55; white-space: pre-wrap; padding: 12px 14px; }
+
+    /* OVERLAYS & MODAL */
+    .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 42, 91, 0.72); backdrop-filter: blur(6px); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; }
+    .overlay.active { opacity: 1; visibility: visible; }
+
+    .modal { background: white; padding: 32px 26px; border-radius: 24px; text-align: center; max-width: 340px; width: 88%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3); transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .modal h3.alert-title { color: var(--error); }
+    .check-wrap, .alert-wrap { width: 72px; height: 72px; margin: 0 auto 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .check-wrap { background: #FEF9C3; }
+    .alert-wrap { background: #FEF2F2; }
+    .check-wrap svg { width: 52px; height: 52px; }
+    .check-circle { stroke: #059669; stroke-width: 3; stroke-dasharray: 151; stroke-dashoffset: 151; }
+    .check-mark { stroke: #059669; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 40; stroke-dashoffset: 40; }
+    .overlay.active .check-circle { animation: draw 0.6s ease forwards; }
+    .overlay.active .check-mark { animation: draw 0.35s 0.5s ease forwards; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    .overlay.active .modal { transform: scale(1); }
+    .modal h3 { color: var(--success); margin-bottom: 15px; font-size: 1.5rem; font-weight: 700;}
+    .modal p { color: var(--text-muted); margin-bottom: 35px; line-height: 1.6; font-size: 0.95rem;}
+
+    .loader { border: 4px solid rgba(255,255,255,0.15); border-top: 4px solid #38BDF8; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* FOCUS MODE MOBILE (PREMIUM ADAPTATION) */
+    .focus-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 42, 91, 0.75); backdrop-filter: blur(6px); display: flex; justify-content: center; align-items: flex-end; z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+    .focus-overlay.active { opacity: 1; visibility: visible; }
+    .focus-container { background: white; width: 100%; border-radius: 24px 24px 0 0; padding: 22px 20px 24px; display: flex; flex-direction: column; transform: translateY(40px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 -10px 40px rgba(0,0,0,0.25); }
+    .focus-overlay.active .focus-container { transform: translateY(0) scale(1); }
+    .focus-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 1rem; }
+    .focus-textarea { width: 100%; height: 220px; padding: 18px; border: 2px solid var(--primary); border-radius: 12px; font-size: 1.05rem; resize: none; margin-bottom: 20px; background: #F8FAFC; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); transition: background 0.3s; line-height: 1.5;}
+    .focus-textarea:focus { outline: none; background: white;}
+    .btn-simpan-focus { align-self: flex-end; background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%); color: white; border: none; padding: 12px 28px; border-radius: 12px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: 0.2s; box-shadow: 0 6px 16px rgba(2, 132, 199, 0.28);}
+    .btn-simpan-focus:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(2, 132, 199, 0.2);}
+
+    @media (max-width: 600px) { body { display: block; } .frame { width: 100%; max-width: none; height: 100vh; height: 100dvh; border-radius: 0; box-shadow: none; } .app-body { padding: 16px 16px 0; } .action-bar { margin: 0 -16px; padding: 14px 16px 18px; } }
+  </style>
+</head>
+<body>
+
+  <div class="frame">
+  <div class="card">
+    <div class="app-header">
+    <!-- LOGO DENGAN KELAS EFEK 3D -->
+    <div class="logo-container">
+      <img src="https://lh3.googleusercontent.com/d/1LO8pGXNp9zR6T33nE3lV6xD-IBHHYOn1" alt="Logo" class="logo-3d" width="52" height="52">
+    </div>
+
+    <h2>Tujuan Pembelajaran</h2>
+    <p class="subtitle">Semester Genap TA 2025/2026</p>
+    </div>
+
+    <div class="stepper">
+      <div class="step active"><span class="step-dot">1</span><span>Identitas</span></div>
+      <div class="step-line"></div>
+      <div class="step"><span class="step-dot">2</span><span>Isi TP</span></div>
+      <div class="step-line"></div>
+      <div class="step"><span class="step-dot">3</span><span>Tinjau</span></div>
+    </div>
+
+    <div class="app-body">
+
+    <!-- WRAPPER FORM INPUT -->
+    <div id="formSection">
+      <div class="premium-group">
+        <label class="premium-label">Identitas Guru</label>
+        <select id="namaGuru" class="premium-select is-loading" onchange="validateForm()">
+          <option value="">-- Memuat data... --</option>
+        </select>
+      </div>
+
+      <div class="premium-group">
+        <label class="premium-label">Tingkat Kelas</label>
+        <select id="kelas" class="premium-select is-loading" onchange="handleKelasChange()">
+          <option value="">-- Memuat data... --</option>
+        </select>
+      </div>
+
+      <div class="premium-group">
+        <label class="premium-label">Mata Pelajaran</label>
+        <select id="mapel" class="premium-select" onchange="validateForm()" disabled>
+          <option value="">-- Pilih Kelas Terlebih Dahulu --</option>
+        </select>
+      </div>
+
+      <div class="tp-container">
+        <label style="margin-bottom: 15px; display:block; font-size: 1.05rem; font-weight: 700; color: var(--text); letter-spacing: -0.3px;">
+          Deskripsi TP 
+          <span style="font-weight:400; font-size:0.85rem; color:var(--text-muted); display:block; margin-top:2px;">(Minimal 3, maksimal 6 TP)</span>
+        </label>
+        
+        <div class="premium-group">
+          <label class="premium-label" for="jumlahTP">Jumlah TP yang akan diinput</label>
+          <div class="jumlah-row">
+            <input type="number" id="jumlahTP" class="premium-input" inputmode="numeric" min="3" max="6" step="1" placeholder="3 - 6" oninput="clearJumlahError()" onkeydown="if(event.key==='Enter')konfirmasiJumlah()">
+            <button class="btn btn-konfirmasi" id="btnJumlah" onclick="konfirmasiJumlah()">Tampilkan Kolom TP</button>
+          </div>
+          <div class="warning-text" id="jumlahWarn"></div>
+        </div>
+
+        <div id="tp-wrapper">
+          <!-- Input Textarea dibuat otomatis oleh JS -->
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <div class="progress-info" id="tpProgress"></div>
+        <button class="btn btn-submit" id="btnSubmit" onclick="showPreview()" disabled>Preview dan Kirim</button>
+      </div>
+    </div>
+    
+    <!-- WRAPPER SECTION PREVIEW -->
+    <div id="previewSection" style="display: none;">
+      <div class="summary-card">
+        <div class="summary-row full">
+          <div class="summary-title">Nama Guru</div>
+          <div class="summary-value" id="prevGuru">-</div>
+        </div>
+        <div class="summary-row full">
+          <div class="summary-title">Mata Pelajaran</div>
+          <div class="summary-value" id="prevMapel">-</div>
+        </div>
+        <div class="summary-row">
+          <div class="summary-title">Kelas</div>
+          <div class="summary-value" id="prevKelas">-</div>
+        </div>
+        <div class="summary-row">
+          <div class="summary-title">Jumlah TP</div>
+          <div class="summary-value" id="prevCount">-</div>
+        </div>
+      </div>
+
+      <div class="tp-table">
+        <div class="tp-table-head"><div>No.</div><div>Deskripsi TP</div></div>
+        <div id="previewTpList"></div>
+      </div>
+
+      <div class="action-bar action-bar-row">
+        <button class="btn btn-back" onclick="hidePreview()">KEMBALI</button>
+        <button class="btn btn-submit" onclick="submitForm()">KIRIM</button>
+      </div>
+    </div>
+
+    </div>
+  </div>
+
+  <!-- OVERLAY FOCUS MODE -->
+  <div class="focus-overlay" id="focusOverlay">
+    <div class="focus-container">
+      <div class="focus-header">
+        <span id="focusTitle" style="font-weight:700; color:var(--text); font-size:1.1rem; letter-spacing:-0.3px;">TP X</span>
+        <span class="char-count" id="focusCount">0/100</span>
+      </div>
+      <textarea id="focusTextarea" class="focus-textarea" placeholder="Ketik deskripsi TP di sini..." oninput="handleFocusTextarea()"></textarea>
+      <div class="warning-text" id="focusWarn" style="display:none; margin-bottom:15px; text-align:right;">Maksimal 100 karakter tercapai.</div>
+      <button class="btn-simpan-focus" onclick="closeFocusMode()">Simpan</button>
+    </div>
+  </div>
+
+  <!-- OVERLAYS LOADING & MODAL -->
+  <div class="overlay" id="loadingOverlay">
+    <div style="text-align: center; color: white;">
+      <div class="loader" style="margin: 0 auto 20px;"></div>
+      <p style="font-weight: 500; font-size: 1.1rem; letter-spacing: 0.5px;">Memeriksa Database...</p>
+    </div>
+  </div>
+
+  <div class="overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="check-wrap"><svg viewBox="0 0 52 52" fill="none"><circle class="check-circle" cx="26" cy="26" r="24"/><path class="check-mark" d="M14 27l8 8 16-17"/></svg></div>
+      <h3>Berhasil!</h3>
+      <p>TP Anda telah berhasil dikirim ke database erapor.</p>
+      <button class="btn btn-submit" onclick="resetForm()">Kembali</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="overlay" id="alertOverlay">
+    <div class="modal">
+      <div class="alert-wrap"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <h3 class="alert-title" id="alertTitle">TP sudah terisi</h3>
+      <p id="alertMsg"></p>
+      <button class="btn btn-submit" onclick="closeAlert()">Mengerti</button>
+    </div>
+  </div>
+
+  </div>
+
+  <script>
+    /* ==========================================
+       JAVASCRIPT: LOGIC & DYNAMIC INDEXING
+       ========================================== */
+       
+    // Daftar mapel per kelas dibaca dari sheet MasterData (kolom "Mapel Kelas X")
+    let mapelData = {};
+    
+    const MIN_TP = 3;
+    const MAX_TP = 6;
+    const MAX_CHAR = 100;
+    
+    let activeFocusId = null;
+    let tpConfirmed = 0;
+    let tpChecked = ''; 
+
+    // Ganti URL ini dengan URL Web App Google Apps Script yang berakhiran /exec.
+    const API_URL = 'https://script.google.com/macros/s/AKfycbzSha3kf93dzlIUf0PHlG_sHGdAdweMvBEW8O1b_Pfvhy-j9qh1Au1f9Hneb_v1FMk/exec';
+
+    window.onload = function() {
+      callBackend('getInitialData')
+        .then(populateDropdowns)
+        .catch(() => showAlert('Gagal terhubung', 'Tidak dapat memuat data awal. Periksa koneksi internet Anda lalu coba lagi.'));
+    };
+
+    async function callBackend(action, payload = {}) {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action, ...payload })
+      });
+      let result;
+      try { result = await response.json(); }
+      catch (_) { throw new Error('Respons server tidak valid.'); }
+      if (!response.ok || result.apiError) {
+        throw new Error(result.message || 'Permintaan ke server gagal.');
+      }
+      return result;
+    }
+
+    function populateDropdowns(data) {
+      const elGuru = document.getElementById('namaGuru');
+      const elKelas = document.getElementById('kelas');
+      
+      mapelData = data.mapel || {};
+      elGuru.classList.remove('is-loading');
+      elKelas.classList.remove('is-loading');
+      elGuru.innerHTML = '<option value="">-- Pilih Nama Guru --</option>';
+      data.gurus.forEach(g => elGuru.innerHTML += `<option value="${g}">${g}</option>`);
+      
+      elKelas.innerHTML = '<option value="">-- Pilih Kelas --</option>';
+      data.kelas.forEach(k => elKelas.innerHTML += `<option value="${k}">${k}</option>`);
+    }
+
+    function handleKelasChange() {
+      const kelasVal = document.getElementById('kelas').value;
+      const elMapel = document.getElementById('mapel');
+      
+      if (!kelasVal) {
+        elMapel.innerHTML = '<option value="">-- Pilih Kelas Terlebih Dahulu --</option>';
+        elMapel.disabled = true;
+      } else {
+        elMapel.disabled = false;
+        elMapel.innerHTML = '<option value="">-- Pilih Mata Pelajaran --</option>';
+        const mapelList = mapelData[kelasVal] || [];
+        if (mapelList.length === 0) {
+          elMapel.innerHTML = '<option value="">-- Daftar mapel belum tersedia, hubungi admin --</option>';
+          elMapel.disabled = true;
+        }
+        mapelList.forEach(m => elMapel.innerHTML += `<option value="${m}">${m}</option>`);
+      }
+      validateForm();
+    }
+
+    function tambahTP() {
+      const wrapper = document.getElementById('tp-wrapper');
+      const currentCount = wrapper.querySelectorAll('.tp-item').length;
+      if (currentCount >= MAX_TP) return;
+      
+      const tpItem = document.createElement('div');
+      tpItem.className = 'tp-item';
+      
+      tpItem.innerHTML = `
+        <div class="tp-header">
+          <div style="display:flex; align-items:center;">
+            <span style="font-weight:700; color:var(--navy); margin-right:8px;">TP</span><span class="tp-title-text"></span>
+            <span class="tp-status-label" style="font-size:0.75rem; margin-left:8px;"></span>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <button class="btn-hapus" title="Hapus TP ini">Hapus TP</button>
+            <span class="char-count">0/${MAX_CHAR}</span>
+          </div>
+        </div>
+        <textarea placeholder="Masukkan deskripsi TP maksimal 100 karakter..."></textarea>
+        <div class="warning-text">Mohon maaf, maksimal ${MAX_CHAR} karakter ya.</div>
+      `;
+      
+      wrapper.appendChild(tpItem);
+      reindexTPs();
+    }
+
+    function hapusTP(id) {
+      const elem = document.getElementById(`tp-item-${id}`);
+      if (elem) {
+        elem.remove();
+        reindexTPs(); 
+      }
+    }
+
+    function reindexTPs() {
+      const items = document.querySelectorAll('.tp-item');
+      
+      items.forEach((item, index) => {
+        const id = index + 1; 
+        
+        item.id = `tp-item-${id}`;
+        item.querySelector('.tp-title-text').innerText = id;
+
+        const statusLabel = item.querySelector('.tp-status-label');
+        if (id <= MIN_TP) {
+          statusLabel.innerHTML = '<span class="badge badge-req">Wajib</span>';
+        } else {
+          statusLabel.innerHTML = '<span class="badge badge-req">Wajib</span>';
+        }
+
+        const btnHapus = item.querySelector('.btn-hapus');
+        if (id <= MIN_TP) {
+          btnHapus.style.display = 'none';
+        } else {
+          btnHapus.style.display = 'none';
+          btnHapus.setAttribute('onclick', `hapusTP(${id})`);
+        }
+
+        const textarea = item.querySelector('textarea');
+        textarea.id = `tp-${id}`;
+        textarea.setAttribute('oninput', `handleTextarea(${id})`);
+        textarea.setAttribute('onfocus', `openFocusMode(${id})`);
+
+        item.querySelector('.char-count').id = `count-${id}`;
+        item.querySelector('.warning-text').id = `warn-${id}`;
+      });
+
+      validateForm();
+    }
+
+    function openFocusMode(id) {
+      if (window.innerWidth > 600) return;
+      
+      const originalTextarea = document.getElementById(`tp-${id}`);
+      originalTextarea.blur(); 
+      
+      activeFocusId = id;
+      const focusOverlay = document.getElementById('focusOverlay');
+      const focusTextarea = document.getElementById('focusTextarea');
+      const focusTitle = document.getElementById('focusTitle');
+      
+      focusTitle.innerText = `Edit TP ${id}`;
+      focusTextarea.value = originalTextarea.value;
+      
+      focusOverlay.classList.add('active');
+      
+      setTimeout(() => {
+        focusTextarea.focus();
+        handleFocusTextarea(); 
+      }, 150);
+    }
+
+    function closeFocusMode() {
+      if (!activeFocusId) return;
+      
+      const originalTextarea = document.getElementById(`tp-${activeFocusId}`);
+      const focusTextarea = document.getElementById('focusTextarea');
+      
+      originalTextarea.value = focusTextarea.value;
+      document.getElementById('focusOverlay').classList.remove('active');
+      
+      handleTextarea(activeFocusId);
+      activeFocusId = null;
+    }
+
+    function handleFocusTextarea() {
+      const textarea = document.getElementById('focusTextarea');
+      const counter = document.getElementById('focusCount');
+      const warning = document.getElementById('focusWarn');
+      
+      let textLength = textarea.value.length;
+      if (textLength > MAX_CHAR) {
+        textarea.value = textarea.value.substring(0, MAX_CHAR);
+        textLength = MAX_CHAR;
+        warning.style.display = 'block';
+      } else {
+        warning.style.display = 'none';
+      }
+      
+      counter.innerText = `${textLength}/${MAX_CHAR}`;
+      counter.style.color = textLength >= MAX_CHAR ? 'var(--error)' : (textLength >= (MAX_CHAR - 10) ? 'var(--warn)' : 'var(--primary)');
+      counter.style.setProperty('--p', (textLength / MAX_CHAR * 100) + '%');
+    }
+
+    function handleTextarea(id) {
+      const textarea = document.getElementById(`tp-${id}`);
+      const counter = document.getElementById(`count-${id}`);
+      const warning = document.getElementById(`warn-${id}`);
+      
+      let textLength = textarea.value.length;
+      if (textLength > MAX_CHAR) {
+        textarea.value = textarea.value.substring(0, MAX_CHAR);
+        textLength = MAX_CHAR;
+        warning.style.display = 'block';
+      } else {
+        warning.style.display = 'none';
+      }
+      
+      counter.innerText = `${textLength}/${MAX_CHAR}`;
+      counter.style.color = textLength >= MAX_CHAR ? 'var(--error)' : (textLength >= (MAX_CHAR - 10) ? 'var(--warn)' : 'var(--primary)');
+      counter.style.setProperty('--p', (textLength / MAX_CHAR * 100) + '%');
+      
+      validateForm();
+    }
+
+    function validateForm() {
+      updateStepper();
+      if (tpConfirmed > 0 && tpChecked !== document.getElementById('kelas').value + '|' + document.getElementById('mapel').value) {
+        tpConfirmed = 0;
+        document.getElementById('btnJumlah').innerText = 'Tampilkan Kolom TP';
+        showJumlahError('Kelas atau mapel berubah. Tekan Tampilkan Kolom TP untuk memeriksa ulang.');
+      }
+      updateProgress();
+      const guru = document.getElementById('namaGuru').value;
+      const kelas = document.getElementById('kelas').value;
+      const mapel = document.getElementById('mapel').value;
+      const btnSubmit = document.getElementById('btnSubmit');
+
+      let isTpValid = tpConfirmed >= MIN_TP;
+      for (let i = 1; i <= tpConfirmed; i++) {
+        const el = document.getElementById(`tp-${i}`);
+        if (el) {
+          let val = el.value.trim();
+          if (val === "" || val.length > MAX_CHAR) isTpValid = false;
+        }
+      }
+
+      if (guru && kelas && mapel && isTpValid) {
+        btnSubmit.disabled = false;
+      } else {
+        btnSubmit.disabled = true;
+      }
+    }
+
+    function showPreview() {
+      const guru = document.getElementById('namaGuru').value;
+      const mapel = document.getElementById('mapel').value;
+      
+      let tpData = [];
+      const totalItems = document.querySelectorAll('.tp-item').length;
+      
+      for (let i = 1; i <= totalItems; i++) {
+        let el = document.getElementById(`tp-${i}`);
+        if (el) {
+          let val = el.value.trim();
+          if (val !== "") tpData.push(val);
+        }
+      }
+
+      document.getElementById('prevMapel').innerText = mapel;
+      document.getElementById('prevKelas').innerText = document.getElementById('kelas').value;
+      document.getElementById('prevGuru').innerText = guru;
+      document.getElementById('prevCount').innerText = tpData.length + " TP";
+
+      const listContainer = document.getElementById('previewTpList');
+      listContainer.innerHTML = '';
+      tpData.forEach((tp, index) => {
+        listContainer.innerHTML += `
+          <div class="preview-tp-item">
+            <div class="preview-tp-number">${index + 1}</div>
+            <div class="preview-tp-text">${escapeHtml(tp)}</div>
+          </div>
+        `;
+      });
+
+      document.getElementById('formSection').style.display = 'none';
+      document.getElementById('previewSection').style.display = 'block';
+      updateStepper();
+      document.querySelector('.app-body').scrollTop = 0;
+    }
+
+    function hidePreview() {
+      document.getElementById('previewSection').style.display = 'none';
+      document.getElementById('formSection').style.display = 'block';
+      updateStepper();
+      document.querySelector('.app-body').scrollTop = 0;
+    }
+
+    function submitForm() {
+      let tpData = [];
+      const totalItems = document.querySelectorAll('.tp-item').length;
+      
+      for (let i = 1; i <= totalItems; i++) {
+        let el = document.getElementById(`tp-${i}`);
+        if (el) {
+          let val = el.value.trim();
+          if (val !== "") tpData.push(val);
+        }
+      }
+
+      const formData = {
+        namaGuru: document.getElementById('namaGuru').value,
+        kelas: document.getElementById('kelas').value,
+        mapel: document.getElementById('mapel').value,
+        tps: tpData
+      };
+
+      document.getElementById('loadingOverlay').classList.add('active');
+      const startTime = Date.now();
+
+      callBackend('submitData', { formData })
+        .then(res => {
+          const elapsedTime = Date.now() - startTime;
+          const remainingTime = 5000 - elapsedTime;
+          if (remainingTime > 0) setTimeout(() => processResponse(res), remainingTime);
+          else processResponse(res);
+        })
+        .catch(() => {
+          const elapsedTime = Date.now() - startTime;
+          const remainingTime = 5000 - elapsedTime;
+          const showFailure = () => {
+            document.getElementById('loadingOverlay').classList.remove('active');
+            showAlert('Gagal terhubung', 'Tidak dapat mengirim data. Periksa koneksi internet Anda lalu coba lagi.');
+          };
+          if (remainingTime > 0) setTimeout(showFailure, remainingTime); else showFailure();
+        });
+    }
+
+    function processResponse(res) {
+      document.getElementById('loadingOverlay').classList.remove('active');
+      if (res.status === "error") {
+        let existingName = res.message.split("oleh ").pop() || "Guru lain";
+        let currentKelas = document.getElementById('kelas').value;
+        let currentMapel = document.getElementById('mapel').value;
+        showAlert('TP sudah terisi', `TP untuk ${currentKelas} pada mapel ${currentMapel} telah diisi oleh ${existingName}. Jika ini keliru, silakan hubungi admin.`);
+      } else if (res.status === "invalid") {
+        showAlert('Data tidak valid', res.message);
+      } else {
+        document.getElementById('modalOverlay').classList.add('active');
+      }
+    }
+
+    function showAlert(title, msg) {
+      document.getElementById('alertTitle').innerText = title;
+      document.getElementById('alertMsg').innerText = msg;
+      document.getElementById('alertOverlay').classList.add('active');
+    }
+
+    function tampilToast(msg) {
+      const el = document.getElementById('toast');
+      el.innerText = msg;
+      el.classList.add('show');
+      clearTimeout(window._toastT);
+      window._toastT = setTimeout(() => el.classList.remove('show'), 3000);
+    }
+
+    function sorotTP(dari) {
+      const items = document.querySelectorAll('.tp-item');
+      const first = document.getElementById(`tp-${dari}`);
+      if (first) {
+        const body = document.querySelector('.app-body');
+        const delta = first.closest('.tp-item').getBoundingClientRect().top - body.getBoundingClientRect().top - 12;
+        body.scrollTo({ top: body.scrollTop + delta, behavior: 'smooth' });
+      }
+      for (let i = dari; i <= items.length; i++) {
+        const it = document.getElementById(`tp-${i}`).closest('.tp-item');
+        it.classList.add('tp-flash');
+        setTimeout(() => it.classList.remove('tp-flash'), 1400);
+      }
+    }
+
+    function updateProgress() {
+      const el = document.getElementById('tpProgress');
+      const total = document.querySelectorAll('.tp-item').length;
+      if (total === 0) { el.style.display = 'none'; return; }
+      let filled = 0;
+      for (let i = 1; i <= total; i++) {
+        const t = document.getElementById(`tp-${i}`);
+        if (t && t.value.trim() !== '') filled++;
+      }
+      el.style.display = 'block';
+      el.innerText = filled === total ? 'Semua TP sudah terisi' : `${filled} dari ${total} TP terisi`;
+      el.style.setProperty('--p', (filled / total * 100) + '%');
+      el.classList.toggle('done', filled === total);
+    }
+
+    function cekDuluLaluTerapkan(n, kelasV, mapelV) {
+      const btn = document.getElementById('btnJumlah');
+      const overlay = document.getElementById('loadingOverlay');
+      btn.disabled = true;
+      overlay.classList.add('active');
+      const mulai = Date.now();
+      const selesai = fn => setTimeout(() => { overlay.classList.remove('active'); btn.disabled = false; fn(); }, Math.max(0, 1200 - (Date.now() - mulai)));
+      callBackend('cekKetersediaan', { kelas: kelasV, mapel: mapelV })
+        .then(res => selesai(() => {
+          if (res && res.status === 'taken') {
+            showAlert('TP sudah terisi', `TP untuk ${kelasV} pada mapel ${mapelV} telah diisi oleh ${res.guru}. Jika ini keliru, silakan hubungi admin.`);
+          } else {
+            terapkanJumlah(n);
+          }
+        }))
+        .catch(() => selesai(() => showAlert('Gagal terhubung', 'Tidak dapat memeriksa data. Periksa koneksi internet Anda lalu coba lagi.')));
+    }
+
+    function showJumlahError(msg) {
+      const w = document.getElementById('jumlahWarn');
+      w.innerText = msg;
+      w.style.display = 'block';
+      document.getElementById('jumlahTP').classList.add('is-invalid');
+    }
+
+    function clearJumlahError() {
+      document.getElementById('jumlahWarn').style.display = 'none';
+      document.getElementById('jumlahTP').classList.remove('is-invalid');
+    }
+
+    function konfirmasiJumlah() {
+      const guruV = document.getElementById('namaGuru').value;
+      const kelasV = document.getElementById('kelas').value;
+      const mapelV = document.getElementById('mapel').value;
+      if (!guruV || !kelasV || !mapelV) { showJumlahError('Lengkapi Nama Guru, Kelas, dan Mata Pelajaran terlebih dahulu.'); return; }
+      const raw = document.getElementById('jumlahTP').value.trim();
+      const n = Number(raw);
+      let msg = '';
+      if (raw === '') msg = `Isi jumlah TP terlebih dahulu (minimal ${MIN_TP}, maksimal ${MAX_TP}).`;
+      else if (!Number.isInteger(n)) msg = 'Jumlah TP harus bilangan bulat, tanpa koma atau desimal.';
+      else if (n < MIN_TP) msg = `Minimal ${MIN_TP} TP wajib diinput. Anda mengisi ${n}, silakan isi ${MIN_TP} sampai ${MAX_TP}.`;
+      else if (n > MAX_TP) msg = `Maksimal ${MAX_TP} TP. Anda mengisi ${n}, silakan isi ${MIN_TP} sampai ${MAX_TP}.`;
+      if (msg) { showJumlahError(msg); return; }
+      clearJumlahError();
+      if (tpChecked !== kelasV + '|' + mapelV) { cekDuluLaluTerapkan(n, kelasV, mapelV); return; }
+      terapkanJumlah(n);
+    }
+
+    function terapkanJumlah(n) {
+      const wrapper = document.getElementById('tp-wrapper');
+      const current = wrapper.querySelectorAll('.tp-item').length;
+      if (n < current) {
+        let terisi = 0;
+        for (let i = n + 1; i <= current; i++) {
+          if (document.getElementById(`tp-${i}`).value.trim() !== '') terisi++;
+        }
+        if (terisi > 0 && !confirm(`Mengurangi menjadi ${n} TP akan menghapus ${terisi} isian TP yang sudah terisi. Lanjutkan?`)) return;
+        while (wrapper.querySelectorAll('.tp-item').length > n) wrapper.lastElementChild.remove();
+        reindexTPs();
+      } else {
+        for (let i = current; i < n; i++) tambahTP();
+      }
+      tpConfirmed = n;
+      tpChecked = document.getElementById('kelas').value + '|' + document.getElementById('mapel').value;
+      document.getElementById('btnJumlah').innerText = 'Ubah Jumlah';
+      validateForm();
+      if (n > current) {
+        tampilToast(current === 0 ? `${n} kolom TP telah ditambahkan` : `Jumlah TP diubah menjadi ${n} (${n - current} kolom ditambahkan)`);
+        sorotTP(current + 1);
+      } else if (n < current) {
+        tampilToast(`Jumlah TP dikurangi menjadi ${n}`);
+      } else {
+        tampilToast(`Jumlah TP tetap ${n}`);
+      }
+    }
+
+    function escapeHtml(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function updateStepper() {
+      document.querySelector('.frame').scrollTop = 0;
+      const inPreview = document.getElementById('previewSection').style.display === 'block';
+      const idOk = document.getElementById('namaGuru').value && document.getElementById('kelas').value && document.getElementById('mapel').value;
+      const cur = inPreview ? 3 : (idOk ? 2 : 1);
+      document.querySelectorAll('.step').forEach((s, i) => {
+        s.classList.toggle('done', i + 1 < cur);
+        s.classList.toggle('active', i + 1 === cur);
+      });
+    }
+
+    function closeAlert() {
+      document.getElementById('alertOverlay').classList.remove('active');
+    }
+
+    function resetForm() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.getElementById('previewSection').style.display = 'none';
+      document.getElementById('formSection').style.display = 'block';
+
+      document.getElementById('namaGuru').value = "";
+      document.getElementById('kelas').value = "";
+      
+      const elMapel = document.getElementById('mapel');
+      elMapel.innerHTML = '<option value="">-- Pilih Kelas Terlebih Dahulu --</option>';
+      elMapel.disabled = true;
+
+      document.getElementById('tp-wrapper').innerHTML = "";
+      document.getElementById('jumlahTP').value = "";
+      tpConfirmed = 0;
+      tpChecked = '';
+      document.getElementById('btnJumlah').innerText = "Tampilkan Kolom TP";
+      clearJumlahError();
+      
+      validateForm();
+    }
+  </script>
+</body>
+</html>
