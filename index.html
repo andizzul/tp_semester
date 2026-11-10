@@ -90,6 +90,48 @@
     .tp-flash { animation: tpflash 1.2s ease-out 1; border-color: var(--primary); }
     .progress-info { text-align: center; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 10px; padding-bottom: 8px; display: none; background: linear-gradient(var(--primary), var(--primary)) left bottom / var(--p, 0%) 3px no-repeat, linear-gradient(#E2E8F0, #E2E8F0) left bottom / 100% 3px no-repeat; }
     .progress-info.done { color: var(--success); }
+    .btn-kembali { position: absolute; top: 14px; left: 14px; z-index: 5; align-items: center; gap: 4px; padding: 6px 12px 6px 8px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, 0.18); color: #fff; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+    .btn-kembali:active { background: rgba(255, 255, 255, 0.3); }
+    .home-summary, .prog-tabs { position: relative; z-index: 2; flex-shrink: 0; margin: -24px 20px 0; background: #fff; border-radius: 16px; box-shadow: 0 8px 24px -8px rgba(11, 42, 91, 0.28); }
+    .home-summary { padding: 14px 16px; cursor: pointer; }
+    .hs-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+    .hs-pct { font-size: 1.1rem; font-weight: 700; color: var(--navy); }
+    .hs-bar { height: 8px; margin: 8px 0 6px; background: #E2E8F0; border-radius: 99px; overflow: hidden; }
+    .hs-fill { height: 100%; width: 0; background: linear-gradient(90deg, #0284C7, #38BDF8); border-radius: 99px; transition: width 0.6s; }
+    .hs-note { font-size: 0.75rem; color: var(--text-muted); }
+    .menu-card { position: relative; display: flex; align-items: center; gap: 14px; width: 100%; margin-bottom: 14px; padding: 16px; border-radius: 18px; border: 1.5px solid #BAE6FD; background: #fff; color: var(--navy); text-align: left; cursor: pointer; transition: transform 0.15s; }
+    .menu-card:active { transform: scale(0.98); }
+    .menu-primary { border: 0; background: linear-gradient(135deg, #0369A1 0%, #0284C7 100%); color: #fff; box-shadow: 0 8px 20px rgba(2, 132, 199, 0.28); }
+    .menu-icon { flex: 0 0 44px; height: 44px; border-radius: 14px; background: #E0F2FE; color: var(--primary-hover); display: flex; align-items: center; justify-content: center; }
+    .menu-primary .menu-icon { background: rgba(255, 255, 255, 0.2); color: #fff; }
+    .menu-text { flex: 1; min-width: 0; }
+    .menu-text b { display: block; font-size: 1rem; }
+    .menu-text small { display: block; margin-top: 2px; font-size: 0.8rem; font-weight: 500; opacity: 0.85; }
+    .menu-flag, .menu-badge { font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+    .menu-flag { background: var(--accent); color: var(--navy); }
+    .menu-badge { background: #FEF3C7; color: #B45309; }
+    .prog-tabs { display: flex; gap: 6px; padding: 6px; }
+    .prog-tab { flex: 1; display: flex; justify-content: center; align-items: center; gap: 6px; padding: 10px 8px; border: 0; border-radius: 12px; background: transparent; color: var(--text-muted); font-size: 0.85rem; font-weight: 700; cursor: pointer; }
+    .prog-tab span { font-size: 0.72rem; padding: 1px 8px; border-radius: 99px; background: #E2E8F0; color: #475569; }
+    .prog-tab.active { background: var(--primary); color: #fff; }
+    .prog-tab.active span { background: rgba(255, 255, 255, 0.25); color: #fff; }
+    .chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; }
+    .chip { flex: 0 0 auto; padding: 6px 14px; border-radius: 999px; border: 1px solid #CBD5E1; background: #fff; color: #334155; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+    .chip.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+    .p-group { margin-bottom: 14px; }
+    .p-group-title { position: sticky; top: 0; z-index: 1; padding: 8px 0; background: #fff; border-bottom: 1px solid #CBD5E1; font-size: 0.8rem; font-weight: 700; color: var(--navy); }
+    .p-row { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #EEF2F7; }
+    .p-ico { flex: 0 0 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .p-row.sudah .p-ico { background: #D1FAE5; color: var(--success); }
+    .p-row.belum .p-ico { background: #FEF3C7; color: var(--warn); }
+    .p-mapel { font-size: 0.9rem; font-weight: 600; color: var(--navy); }
+    .p-sub { margin-top: 2px; font-size: 0.75rem; color: var(--text-muted); }
+    .p-row.belum .p-sub { color: #B45309; font-weight: 600; }
+    .p-skel { height: 48px; margin-bottom: 10px; border-radius: 12px; background-image: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%); background-size: 200% 100%; animation: shimmer 1.2s linear infinite; }
+    .p-empty { text-align: center; padding: 28px 12px; color: var(--text-muted); font-size: 0.9rem; }
+    .prog-foot { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 4px; font-size: 0.75rem; color: var(--text-muted); }
+    .btn-perbarui { border: 1.5px solid #7DD3FC; background: #fff; color: var(--primary-hover); border-radius: 999px; padding: 6px 14px; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+    .prog-note { padding: 4px 0 20px; text-align: center; font-size: 0.8rem; color: var(--text-muted); }
     .premium-select.is-loading { color: transparent; pointer-events: none; background-image: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%); background-size: 200% 100%; background-repeat: repeat-x; animation: shimmer 1.2s linear infinite; }
     @keyframes shimmer { to { background-position: -200% 0; } }
     .premium-select:disabled { background-color: #F8FAFC; color: #94A3B8; cursor: not-allowed; border-color: #E2E8F0; opacity: 0.7;}
@@ -175,6 +217,7 @@
   <div class="frame">
   <div class="card">
     <div class="app-header">
+    <button class="btn-kembali" id="btnBack" style="display: none;" onclick="history.back()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Kembali</button>
     <!-- LOGO DENGAN KELAS EFEK 3D -->
     <div class="logo-container">
       <img src="https://lh3.googleusercontent.com/d/1LO8pGXNp9zR6T33nE3lV6xD-IBHHYOn1" alt="Logo" class="logo-3d" width="52" height="52">
@@ -184,7 +227,7 @@
     <p class="subtitle">Semester Genap TA 2025/2026</p>
     </div>
 
-    <div class="stepper">
+    <div class="stepper" style="display: none;">
       <div class="step active"><span class="step-dot">1</span><span>Identitas</span></div>
       <div class="step-line"></div>
       <div class="step"><span class="step-dot">2</span><span>Isi TP</span></div>
@@ -192,8 +235,20 @@
       <div class="step"><span class="step-dot">3</span><span>Tinjau</span></div>
     </div>
 
+    <div class="home-summary" id="homeSummary" role="button" tabindex="0" onclick="bukaProgres()">
+      <div class="hs-row"><span>Progres pengiriman TP</span><span class="hs-pct" id="hsPct">-</span></div>
+      <div class="hs-bar"><div class="hs-fill" id="hsFill"></div></div>
+      <div class="hs-note" id="hsNote">Memuat data...</div>
+    </div>
+
+    <div class="prog-tabs" id="progTabs" style="display: none;">
+      <button class="prog-tab active" id="tabBelum" onclick="pilihTab('belum')">Belum Kirim <span id="cntBelum">0</span></button>
+      <button class="prog-tab" id="tabSudah" onclick="pilihTab('sudah')">Sudah Kirim <span id="cntSudah">0</span></button>
+    </div>
+
     <div class="app-body">
 
+    <div id="inputScreen" style="display: none;">
     <!-- WRAPPER FORM INPUT -->
     <div id="formSection">
       <div class="premium-group">
@@ -276,6 +331,28 @@
     </div>
 
     </div>
+
+    <div id="homeSection">
+      <button class="menu-card menu-primary" onclick="bukaInput()">
+        <span class="menu-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>
+        <span class="menu-text"><b>Input TP</b><small>Isi tujuan pembelajaran mapel Anda</small></span>
+        <span class="menu-flag" id="flagLanjut" style="display: none;">Lanjutkan isian</span>
+      </button>
+      <button class="menu-card" onclick="bukaProgres()">
+        <span class="menu-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>
+        <span class="menu-text"><b>Progres</b><small>Lihat mapel yang sudah dan belum mengirim TP</small></span>
+        <span class="menu-badge" id="badgeBelum" style="display: none;"></span>
+      </button>
+    </div>
+
+    <div id="progSection" style="display: none;">
+      <div class="chips" id="progChips"></div>
+      <div id="progList"></div>
+      <div class="prog-foot"><span id="progUpdated"></span><button class="btn-perbarui" onclick="muatProgres(true)">Perbarui</button></div>
+      <div class="prog-note" id="progNote">Pengisian TP dilakukan lewat menu Input TP.</div>
+    </div>
+
+    </div>
   </div>
 
   <!-- OVERLAY FOCUS MODE -->
@@ -315,6 +392,7 @@
       <div class="alert-wrap"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
       <h3 class="alert-title" id="alertTitle">TP sudah terisi</h3>
       <p id="alertMsg"></p>
+      <button class="btn btn-back" id="btnLihatProgres" style="display: none; width: 100%; margin-bottom: 10px;" onclick="closeAlert(); bukaProgres();">Lihat Progres</button>
       <button class="btn btn-submit" onclick="closeAlert()">Mengerti</button>
     </div>
   </div>
@@ -341,6 +419,8 @@
     const API_URL = 'https://script.google.com/macros/s/AKfycbzSha3kf93dzlIUf0PHlG_sHGdAdweMvBEW8O1b_Pfvhy-j9qh1Au1f9Hneb_v1FMk/exec';
 
     window.onload = function() {
+      history.replaceState({ s: 'home', i: 0 }, '');
+      muatProgres();
       callBackend('getInitialData')
         .then(populateDropdowns)
         .catch(() => showAlert('Gagal terhubung', 'Tidak dapat memuat data awal. Periksa koneksi internet Anda lalu coba lagi.'));
@@ -603,11 +683,13 @@
 
       document.getElementById('formSection').style.display = 'none';
       document.getElementById('previewSection').style.display = 'block';
+      if (!history.state || history.state.s !== 'preview') navPush('preview');
       updateStepper();
       document.querySelector('.app-body').scrollTop = 0;
     }
 
     function hidePreview() {
+      if (history.state && history.state.s === 'preview') { history.back(); return; }
       document.getElementById('previewSection').style.display = 'none';
       document.getElementById('formSection').style.display = 'block';
       updateStepper();
@@ -665,11 +747,142 @@
         showAlert('Data tidak valid', res.message);
       } else {
         document.getElementById('modalOverlay').classList.add('active');
+        progLoadedAt = 0;
       }
+    }
+
+    // ===== NAVIGASI LAYAR & PROGRES =====
+    let navDepth = 0;
+    let curState = { s: 'home', i: 0 };
+    let progData = null, progLoadedAt = 0, progLoading = false;
+    let progTab = 'belum', progKelas = 'Semua', progKelasList = [];
+    const BULAN = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+    const ICON_OK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
+    const ICON_WAIT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+
+    function navPush(s) {
+      navDepth++;
+      curState = { s: s, i: navDepth };
+      history.pushState(curState, '');
+    }
+
+    function bukaInput() { navPush('input'); renderScreen('input'); }
+    function bukaProgres() { navPush('progres'); renderScreen('progres'); }
+
+    function kembaliKeBeranda() {
+      if (navDepth > 0) history.go(-navDepth); else renderScreen('home');
+    }
+
+    window.addEventListener('popstate', e => {
+      const lama = curState;
+      const aktif = id => document.getElementById(id).classList.contains('active');
+      if (aktif('loadingOverlay') || aktif('modalOverlay')) { history.pushState(lama, ''); return; }
+      if (aktif('focusOverlay') || aktif('alertOverlay')) {
+        if (aktif('focusOverlay')) closeFocusMode(); else closeAlert();
+        history.pushState(lama, '');
+        return;
+      }
+      curState = e.state || { s: 'home', i: 0 };
+      navDepth = curState.i;
+      renderScreen(curState.s);
+    });
+
+    window.addEventListener('beforeunload', e => {
+      if (adaIsian()) { e.preventDefault(); e.returnValue = ''; }
+    });
+
+    function adaIsian() {
+      return Array.from(document.querySelectorAll('#tp-wrapper textarea')).some(t => t.value.trim() !== '');
+    }
+
+    function renderScreen(s) {
+      const input = s === 'input' || s === 'preview';
+      const set = (id, v) => { document.getElementById(id).style.display = v; };
+      set('inputScreen', input ? 'block' : 'none');
+      set('homeSection', s === 'home' ? 'block' : 'none');
+      set('progSection', s === 'progres' ? 'block' : 'none');
+      set('homeSummary', s === 'home' ? 'block' : 'none');
+      set('progTabs', s === 'progres' ? 'flex' : 'none');
+      set('btnBack', s === 'home' ? 'none' : 'flex');
+      document.querySelector('.stepper').style.display = input ? 'flex' : 'none';
+      if (s === 'preview' && !document.getElementById('btnSubmit').disabled) showPreview();
+      else if (input) hidePreview();
+      if (!input) document.querySelector('.app-body').scrollTop = 0;
+      document.getElementById('flagLanjut').style.display = (tpConfirmed > 0 || adaIsian()) ? 'inline-block' : 'none';
+      if (s === 'home' || s === 'progres') muatProgres();
+    }
+
+    function fmtTanggal(s) {
+      const m = /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/.exec(s || '');
+      return m ? `${parseInt(m[3], 10)} ${BULAN[parseInt(m[2], 10) - 1]} ${m[1]}, ${m[4]}.${m[5]}` : '';
+    }
+
+    function muatProgres(paksa) {
+      if (progLoading) return;
+      if (!paksa && progData && Date.now() - progLoadedAt < 60000) { renderProgres(); return; }
+      progLoading = true;
+      if (curState.s === 'progres') document.getElementById('progList').innerHTML = '<div class="p-skel"></div>'.repeat(5);
+      callBackend('getProgress').then(d => {
+        progData = d;
+        progLoadedAt = Date.now();
+        progLoading = false;
+        renderProgres();
+      }).catch(() => {
+        progLoading = false;
+        document.getElementById('hsNote').innerText = 'Gagal memuat progres. Ketuk untuk mencoba lagi.';
+        if (curState.s === 'progres') document.getElementById('progList').innerHTML = '<div class="p-empty">Gagal terhubung ke server.<br><br><button class="btn-perbarui" onclick="muatProgres(true)">Coba lagi</button></div>';
+      });
+    }
+
+    function pilihTab(t) { progTab = t; renderProgres(); document.querySelector('.app-body').scrollTop = 0; }
+    function pilihKelas(i) { progKelas = progKelasList[i]; renderProgres(); }
+
+    function renderProgres() {
+      document.getElementById('tabBelum').classList.toggle('active', progTab === 'belum');
+      document.getElementById('tabSudah').classList.toggle('active', progTab === 'sudah');
+      if (!progData) return;
+      const sudah = progData.sudah || [], belum = progData.belum || [], lain = progData.lain || [];
+      const total = sudah.length + belum.length;
+      const pct = total ? Math.round(sudah.length / total * 100) : 0;
+      document.getElementById('hsPct').innerText = pct + '%';
+      document.getElementById('hsFill').style.width = pct + '%';
+      document.getElementById('hsNote').innerText = total ? `${sudah.length} dari ${total} mapel sudah mengirim TP` : 'Daftar mapel belum diatur.';
+      const b = document.getElementById('badgeBelum');
+      b.innerText = belum.length + ' belum';
+      b.style.display = belum.length ? 'inline-block' : 'none';
+      document.getElementById('cntBelum').innerText = belum.length;
+      document.getElementById('cntSudah').innerText = sudah.length;
+
+      const kelasList = [];
+      sudah.concat(belum, lain).forEach(x => { if (kelasList.indexOf(x.kelas) < 0) kelasList.push(x.kelas); });
+      progKelasList = ['Semua'].concat(kelasList);
+      if (progKelasList.indexOf(progKelas) < 0) progKelas = 'Semua';
+      document.getElementById('progChips').innerHTML = progKelasList.map((k, i) => `<button class="chip${k === progKelas ? ' active' : ''}" onclick="pilihKelas(${i})">${escapeHtml(k)}</button>`).join('');
+
+      const tipe = progTab === 'belum' ? 'belum' : 'sudah';
+      const baris = x => `<div class="p-row ${tipe}"><div class="p-ico">${tipe === 'sudah' ? ICON_OK : ICON_WAIT}</div><div><div class="p-mapel">${escapeHtml(x.mapel)}</div><div class="p-sub">${tipe === 'sudah' ? escapeHtml(x.guru) + (x.tanggal ? ' · ' + fmtTanggal(x.tanggal) : '') : 'Belum diisi'}</div></div></div>`;
+      const grup = (judul, arr) => arr.length ? `<div class="p-group"><div class="p-group-title">${escapeHtml(judul)} (${arr.length})</div>${arr.map(baris).join('')}</div>` : '';
+      const sumber = tipe === 'belum' ? belum : sudah;
+      let html = '';
+      kelasList.forEach(k => {
+        if (progKelas === 'Semua' || progKelas === k) html += grup(k, sumber.filter(x => x.kelas === k));
+      });
+      if (tipe === 'sudah') {
+        const diLuar = lain.filter(x => progKelas === 'Semua' || x.kelas === progKelas).map(x => ({ mapel: `${x.mapel} (${x.kelas})`, guru: x.guru, tanggal: x.tanggal }));
+        html += grup('Di luar daftar mapel saat ini', diLuar);
+      }
+      if (!html) {
+        const sub = progKelas === 'Semua' ? 'mapel' : `mapel ${progKelas}`;
+        html = `<div class="p-empty">${tipe === 'belum' ? `Semua ${sub} sudah mengirim TP. Alhamdulillah.` : `Belum ada TP yang terkirim untuk ${sub}.`}</div>`;
+      }
+      document.getElementById('progList').innerHTML = html;
+      document.getElementById('progNote').style.display = tipe === 'belum' ? 'block' : 'none';
+      document.getElementById('progUpdated').innerText = 'Diperbarui pukul ' + new Date(progLoadedAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
     }
 
     function showAlert(title, msg) {
       document.getElementById('alertTitle').innerText = title;
+      document.getElementById('btnLihatProgres').style.display = title === 'TP sudah terisi' ? 'block' : 'none';
       document.getElementById('alertMsg').innerText = msg;
       document.getElementById('alertOverlay').classList.add('active');
     }
@@ -827,6 +1040,7 @@
       clearJumlahError();
       
       validateForm();
+      kembaliKeBeranda();
     }
   </script>
 </body>
