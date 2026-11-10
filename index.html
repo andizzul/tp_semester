@@ -115,16 +115,16 @@
     .prog-tab span { font-size: 0.72rem; padding: 1px 8px; border-radius: 99px; background: #E2E8F0; color: #475569; }
     .prog-tab.active { background: var(--primary); color: #fff; }
     .prog-tab.active span { background: rgba(255, 255, 255, 0.25); color: #fff; }
-    .chips { display: flex; flex: 1; min-width: 0; gap: 8px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; }
+    .chips { display: flex; flex: 1; min-width: 0; gap: 5px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; }
     .chips::-webkit-scrollbar { display: none; }
     .app-body.prog-mode { display: flex; flex-direction: column; overflow: hidden; padding-top: 0; }
     #progSection { flex: 1; min-height: 0; flex-direction: column; }
-    .prog-top { display: flex; align-items: flex-start; gap: 8px; flex-shrink: 0; padding-top: 16px; }
-    .btn-segarkan { display: flex; align-items: center; gap: 6px; flex-shrink: 0; padding: 7px 12px; border: 0; border-radius: 999px; background: var(--accent); color: var(--navy); font-size: 0.8rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(250, 204, 21, 0.45); transition: transform 0.15s; }
+    .prog-top { display: flex; align-items: center; gap: 4px; flex-shrink: 0; padding-top: 16px; }
+    .chip { flex: 0 0 auto; padding: 5px 9px; border-radius: 999px; border: 1px solid #CBD5E1; background: #fff; color: #334155; font-size: 0.72rem; font-weight: 600; cursor: pointer; }
+    .btn-segarkan { display: flex; align-items: center; gap: 5px; flex-shrink: 0; padding: 6px 9px; border: 0; border-radius: 999px; background: var(--accent); color: var(--navy); font-size: 0.72rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(250, 204, 21, 0.45); transition: transform 0.15s; }
     .btn-segarkan:active { transform: scale(0.95); }
     .btn-segarkan.memuat svg { animation: spin 1s linear infinite; }
     .prog-scroll { flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-    .chip { flex: 0 0 auto; padding: 6px 14px; border-radius: 999px; border: 1px solid #CBD5E1; background: #fff; color: #334155; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
     .chip.active { background: var(--navy); border-color: var(--navy); color: #fff; }
     .p-group { margin-bottom: 14px; }
     .p-group-title { position: sticky; top: 0; z-index: 1; padding: 8px 0; background: #fff; border-bottom: 1px solid #CBD5E1; font-size: 0.8rem; font-weight: 700; color: var(--navy); }
@@ -137,9 +137,13 @@
     .p-row.belum .p-sub { color: #B45309; font-weight: 600; }
     .p-skel { height: 48px; margin-bottom: 10px; border-radius: 12px; background-image: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%); background-size: 200% 100%; animation: shimmer 1.2s linear infinite; }
     .p-empty { text-align: center; padding: 28px 12px; color: var(--text-muted); font-size: 0.9rem; }
-    .prog-foot { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 4px; font-size: 0.75rem; color: var(--text-muted); }
+    .prog-foot { display: flex; justify-content: center; align-items: center; padding: 12px 0 4px; font-size: 0.75rem; color: var(--text-muted); text-align: center; }
     .btn-perbarui { border: 1.5px solid #7DD3FC; background: #fff; color: var(--primary-hover); border-radius: 999px; padding: 6px 14px; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
     .prog-note { padding: 4px 0 20px; text-align: center; font-size: 0.8rem; color: var(--text-muted); }
+    .p-empty-start { min-height: 100%; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px 20px; text-align: center; color: var(--text-muted); }
+    .p-empty-start svg { width: 38px; height: 38px; color: var(--primary-hover); }
+    .p-empty-start b { font-size: 1rem; color: var(--navy); }
+    .p-empty-start span { max-width: 300px; font-size: 0.85rem; line-height: 1.5; }
     .app-footer { flex-shrink: 0; padding: 8px 12px 10px; text-align: center; background: #F8FAFC; border-top: 1px solid #E2E8F0; font-size: 0.75rem; line-height: 1.4; color: #1E293B; }
     .app-footer b { color: #0284C7; font-weight: 700; }
     .premium-select.is-loading { color: transparent; pointer-events: none; background-image: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%); background-size: 200% 100%; background-repeat: repeat-x; animation: shimmer 1.2s linear infinite; }
@@ -775,7 +779,7 @@
     let navDepth = 0;
     let curState = { s: 'home', i: 0 };
     let progData = null, progLoadedAt = 0, progLoading = false;
-    let progTab = 'belum', progKelas = 'Semua', progKelasList = [];
+    let progTab = 'belum', progKelas = null, progKelasList = [];
     const BULAN = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
     const ICON_OK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
     const ICON_WAIT = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
@@ -787,7 +791,7 @@
     }
 
     function bukaInput() { navPush('input'); renderScreen('input'); }
-    function bukaProgres() { navPush('progres'); renderScreen('progres'); }
+    function bukaProgres() { progKelas = null; navPush('progres'); renderScreen('progres'); }
 
     function kembaliKeBeranda() {
       if (navDepth > 0) history.go(-navDepth); else renderScreen('home');
@@ -860,7 +864,7 @@
     }
 
     function pilihTab(t) { progTab = t; renderProgres(); document.getElementById('progScroll').scrollTop = 0; }
-    function pilihKelas(i) { progKelas = progKelasList[i]; renderProgres(); document.getElementById('progScroll').scrollTop = 0; }
+    function pilihKelas(i) { const kelas = progKelasList[i]; progKelas = progKelas === kelas ? null : kelas; renderProgres(); document.getElementById('progScroll').scrollTop = 0; }
 
     function renderProgres() {
       document.getElementById('tabBelum').classList.toggle('active', progTab === 'belum');
@@ -880,28 +884,34 @@
 
       const kelasList = [];
       sudah.concat(belum, lain).forEach(x => { if (kelasList.indexOf(x.kelas) < 0) kelasList.push(x.kelas); });
-      progKelasList = ['Semua'].concat(kelasList);
-      if (progKelasList.indexOf(progKelas) < 0) progKelas = 'Semua';
+      progKelasList = kelasList;
+      if (progKelasList.indexOf(progKelas) < 0) progKelas = null;
       document.getElementById('progChips').innerHTML = progKelasList.map((k, i) => `<button class="chip${k === progKelas ? ' active' : ''}" onclick="pilihKelas(${i})">${escapeHtml(k)}</button>`).join('');
 
       const tipe = progTab === 'belum' ? 'belum' : 'sudah';
+      if (!progKelas) {
+        document.getElementById('progList').innerHTML = '<div class="p-empty-start"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h10M4 19h7"/><circle cx="18" cy="16" r="3"/><path d="m20.2 18.2 1.3 1.3"/></svg><b>Pilih Kelas Terlebih Dahulu</b><span>Silakan pilih salah satu kelas di atas untuk melihat daftar guru dan mata pelajaran.</span></div>';
+        document.getElementById('progNote').style.display = 'block';
+        document.getElementById('progUpdated').innerText = 'Diperbarui pukul ' + new Date(progLoadedAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+        return;
+      }
       const baris = x => `<div class="p-row ${tipe}"><div class="p-ico">${tipe === 'sudah' ? ICON_OK : ICON_WAIT}</div><div><div class="p-mapel">${escapeHtml(x.mapel)}</div><div class="p-sub">${tipe === 'sudah' ? escapeHtml(x.guru) + (x.tanggal ? ' · ' + fmtTanggal(x.tanggal) : '') : 'Belum diisi'}</div></div></div>`;
       const grup = (judul, arr) => arr.length ? `<div class="p-group"><div class="p-group-title">${escapeHtml(judul)} (${arr.length})</div>${arr.map(baris).join('')}</div>` : '';
       const sumber = tipe === 'belum' ? belum : sudah;
       let html = '';
       kelasList.forEach(k => {
-        if (progKelas === 'Semua' || progKelas === k) html += grup(k, sumber.filter(x => x.kelas === k));
+        if (progKelas === k) html += grup(k, sumber.filter(x => x.kelas === k));
       });
       if (tipe === 'sudah') {
-        const diLuar = lain.filter(x => progKelas === 'Semua' || x.kelas === progKelas).map(x => ({ mapel: `${x.mapel} (${x.kelas})`, guru: x.guru, tanggal: x.tanggal }));
+        const diLuar = lain.filter(x => x.kelas === progKelas).map(x => ({ mapel: `${x.mapel} (${x.kelas})`, guru: x.guru, tanggal: x.tanggal }));
         html += grup('Di luar daftar mapel saat ini', diLuar);
       }
       if (!html) {
-        const sub = progKelas === 'Semua' ? 'mapel' : `mapel ${progKelas}`;
+        const sub = `mapel ${progKelas}`;
         html = `<div class="p-empty">${tipe === 'belum' ? `Semua ${sub} sudah mengirim TP. Alhamdulillah.` : `Belum ada TP yang terkirim untuk ${sub}.`}</div>`;
       }
       document.getElementById('progList').innerHTML = html;
-      document.getElementById('progNote').style.display = tipe === 'belum' ? 'block' : 'none';
+      document.getElementById('progNote').style.display = 'block';
       document.getElementById('progUpdated').innerText = 'Diperbarui pukul ' + new Date(progLoadedAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
     }
 
